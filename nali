@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+import requests
+
+url='http://ip.taobao.com/service/getIpInfo.php?ip='
+def nali(ip):
+    req=requests.get(url+ip)
+    data=req.json()['data']
+    return data
+
+if __name__=='__main__':
+    import sys
+    try:
+        ip=sys.argv[1]
+    except IndexError:
+        ip=input('IP: ')
+    #print(str(nali(ip)))
+    dat=nali(ip)
+    print(dat['ip']+'来自',end='')
+    for i in ['country','region','city','isp']:
+        print(dat[i],end='')
