@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+[[ $# -eq 0 ]] && {
+	echo "Usage: $0 REPO_NAME [LOCAL_NAME]";
+	exit 1;
+ }
+
+GITSERVER='git@ss01.lab'
+GITPATH="/home/git/${1}.git"
+[[ -z $2 ]] && LOCALPATH=$1 ||LOCALPATH=$2
+
+ssh git@ss01.lab git init --bare ${GITPATH}
+
+git clone ssh://${GITSERVER}${GITPATH} $LOCALPATH
+
+cd "$LOCALPATH" && touch README
+
+git add . && git commit -am "init README" && git push origin HEAD:master

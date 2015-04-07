@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+if (pgrep -f 'ssh -qTfnN'>/dev/null) 
+then
+    exit
+else
+    ssh -qTfnN -D 0:7070 woo@remotehost.com -p 4435
+fi
